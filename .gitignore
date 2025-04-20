@@ -1,0 +1,84 @@
+# Python相关
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.env
+.venv
+env.bak/
+venv.bak/
+
+# 分布式训练
+.hydra/
+
+# 输出和模型
+output/
+models/
+*.pkl
+*.npz
+*.pt
+*.pth
+*.h5
+*.onnx
+
+# 日志
+*.log
+logs/
+tensorboard/
+runs/
+
+# IDE相关
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# 测试相关
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# 数据文件（根据需要调整）
+# 如果你的数据文件很大，可能不想将它们包含在版本控制中
+# data/
+# *.csv
+# *.json
+# *.ts
+
+# 其他
+.DS_Store
+Thumbs.db
