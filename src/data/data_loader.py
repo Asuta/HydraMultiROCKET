@@ -37,7 +37,7 @@ def load_custom_dataset(file_path: str) -> Tuple[np.ndarray, np.ndarray]:
     加载自定义数据集
 
     参数:
-        file_path: 数据文件路径，支持.ts格式
+        file_path: 数据文件路径，支持.ts格式和.npz格式
 
     返回:
         X: 时间序列数据
@@ -45,8 +45,14 @@ def load_custom_dataset(file_path: str) -> Tuple[np.ndarray, np.ndarray]:
     """
     if file_path.endswith('.ts'):
         X, y = load_from_ts_file(file_path)
+    elif file_path.endswith('.npz'):
+        # 加载.npz格式的数据集
+        print(f"加载.npz格式的数据集: {file_path}")
+        data = np.load(file_path)
+        X = data['X']
+        y = data['y']
     else:
-        raise ValueError(f"不支持的文件格式: {file_path}")
+        raise ValueError(f"不支持的文件格式: {file_path}，支持的格式有 .ts 和 .npz")
 
     return X, y
 
