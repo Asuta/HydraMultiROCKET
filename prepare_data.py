@@ -19,6 +19,10 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from sklearn.model_selection import train_test_split
 
+# 设置中文字体
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'Arial Unicode MS']
+plt.rcParams['axes.unicode_minus'] = False
+
 from data_processing.binance_data_fetcher import get_historical_klines, save_to_csv
 from data_processing.signal_generator import (
     calculate_moving_averages,
