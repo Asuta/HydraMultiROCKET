@@ -11,7 +11,9 @@ from omegaconf import OmegaConf
 class DataConfig:
     """数据配置"""
     dataset_name: str = "italy_power_demand"  # 数据集名称
-    custom_dataset_path: Optional[str] = None  # 自定义数据集路径
+    custom_dataset_path: Optional[str] = None  # 自定义数据集路径（训练集）
+    val_dataset_path: Optional[str] = None  # 验证集路径
+    test_dataset_path: Optional[str] = None  # 测试集路径
     test_size: float = 0.2  # 测试集比例
     random_state: int = 42  # 随机种子
     save_path: Optional[str] = None  # 数据保存路径

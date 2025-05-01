@@ -34,14 +34,14 @@ venv.bak/
 .hydra/
 
 # 输出和模型
-output/
-models/
-*.pkl
-*.npz
-*.pt
-*.pth
-*.h5
-*.onnx
+# output/
+# models/
+# *.pkl
+# *.npz
+# *.pt
+# *.pth
+# *.h5
+# *.onnx
 
 # 日志
 *.log
