@@ -6,6 +6,7 @@ import argparse
 import numpy as np
 from datetime import datetime
 from omegaconf import OmegaConf
+import matplotlib.pyplot as plt
 
 from src.config.config import load_config, get_default_config, save_config
 from src.data.data_loader import load_dataset, load_custom_dataset, split_dataset
@@ -13,6 +14,10 @@ from src.models.hydra_multirocket import HydraMultiRocketModel
 from src.utils.metrics import calculate_metrics, print_metrics, print_classification_report, print_confusion_matrix
 from src.utils.logger import setup_logger
 from src.visualization.visualize import plot_time_series, plot_confusion_matrix
+from src.visualization.fix_chinese_font import fix_chinese_display
+
+# 修复中文显示问题
+fix_chinese_display()
 
 
 def parse_args():

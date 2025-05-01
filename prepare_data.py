@@ -19,6 +19,11 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from sklearn.model_selection import train_test_split
 
+from src.visualization.fix_chinese_font import fix_chinese_display
+
+# 修复中文显示问题
+fix_chinese_display()
+
 from data_processing.binance_data_fetcher import get_historical_klines, save_to_csv
 from data_processing.signal_generator import (
     calculate_moving_averages,
