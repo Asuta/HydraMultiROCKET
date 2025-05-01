@@ -111,20 +111,7 @@ class HydraMultiRocketModel:
         """
         return self.model.predict(X)
 
-    def predict_proba(self, X):
-        """
-        预测概率
-
-        参数:
-            X: 测试数据
-
-        返回:
-            预测的概率
-        """
-        if hasattr(self.model, 'predict_proba'):
-            return self.model.predict_proba(X)
-        else:
-            raise NotImplementedError(f"{self.model_type} 不支持概率预测")
+    # 移除概率预测功能
 
     def save(self, file_path: str):
         """
