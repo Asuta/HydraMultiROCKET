@@ -31,7 +31,7 @@
 
 **运行命令**：
 ```bash
-python prepare_data.py --output_dir output/prepared_data
+python prepare_data.py --output_dir output/data/prepared_data
 ```
 
 **主要参数**：
@@ -44,14 +44,14 @@ python prepare_data.py --output_dir output/prepared_data
 - `--profit_target`：盈利目标，默认为0.005（0.5%）
 - `--stop_loss`：止损水平，默认为0.005（0.5%）
 - `--segment_length`：时间序列片段长度，默认为40
-- `--output_dir`：输出目录，默认为"output/prepared_data"
+- `--output_dir`：输出目录，默认为"output/data/prepared_data"
 
 **输出**：
-- `output/prepared_data/train_dataset.npz`：训练集
-- `output/prepared_data/val_dataset.npz`：验证集
-- `output/prepared_data/test_dataset.npz`：测试集
-- `output/prepared_data/BTCUSDT_15m_signals_distribution.png`：信号分布图
-- `output/prepared_data/config.txt`：配置信息
+- `output/data/prepared_data/train_dataset.npz`：训练集
+- `output/data/prepared_data/val_dataset.npz`：验证集
+- `output/data/prepared_data/test_dataset.npz`：测试集
+- `output/data/prepared_data/BTCUSDT_15m_signals_distribution.png`：信号分布图
+- `output/data/prepared_data/config.txt`：配置信息
 
 ### 第二步：数据处理（可选）
 
@@ -85,9 +85,9 @@ python convert_to_binary.py
 ```
 
 **输出**：
-- `output/prepared_data/binary/train_dataset.npz`：二分类训练集
-- `output/prepared_data/binary/val_dataset.npz`：二分类验证集
-- `output/prepared_data/binary/test_dataset.npz`：二分类测试集
+- `output/data/prepared_data/binary/train_dataset.npz`：二分类训练集
+- `output/data/prepared_data/binary/val_dataset.npz`：二分类验证集
+- `output/data/prepared_data/binary/test_dataset.npz`：二分类测试集
 
 <!-- 已移除数据转置步骤，因为数据生成时已经是正确格式 -->
 
@@ -167,7 +167,7 @@ python predict.py --model_path [model_path] --custom_dataset_path [test_data_pat
 
 **参数**：
 - `--model_path`：模型路径，例如 "output/models/binary/multirocket_hydra_[timestamp]/model.pkl"
-- `--custom_dataset_path`：测试数据路径，例如 "output/prepared_data/binary/test_dataset.npz"
+- `--custom_dataset_path`：测试数据路径，例如 "output/data/prepared_data/binary/test_dataset.npz"
 
 **输出**：
 - 控制台输出：评估指标（准确率、精确率、召回率、F1分数）
@@ -215,7 +215,7 @@ python compare_binary_models.py
 
 1. **准备数据**：
    ```bash
-   python prepare_data.py --output_dir output/prepared_data
+   python prepare_data.py --output_dir output/data/prepared_data
    ```
 
 2. **检查并修复数据中的缺失值**：
@@ -245,7 +245,7 @@ python compare_binary_models.py
 6. **使用模型进行预测**：
    ```bash
    # 使用最新训练的模型（需要替换为实际的模型路径）
-   python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/prepared_data/binary/test_dataset.npz
+   python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/data/prepared_data/binary/test_dataset.npz
    ```
 
 7. **比较不同模型**（可选）：
@@ -288,14 +288,18 @@ HydraMultiROCKET/
 │   ├── visualization/            # 可视化模块
 │   └── config/                   # 配置模块
 ├── output/                       # 输出目录
-│   ├── prepared_data/            # 准备好的数据
-│   │   ├── binary/               # 二分类数据
-│   │   └── ...
+│   ├── data/                     # 数据目录
+│   │   ├── prepared_data/        # 准备好的数据
+│   │   │   ├── binary/           # 二分类数据
+│   │   │   └── ...
+│   │   └── prediction_data/      # 预测用的数据
 │   ├── models/                   # 训练好的模型
 │   │   ├── binary/               # 二分类模型
 │   │   ├── binary_optimized/     # 优化参数的二分类模型
 │   │   └── ...
-│   └── comparison/               # 模型比较结果
+│   └── predictions/              # 预测结果
+│       ├── results/              # 预测结果文件
+│       └── comparison/           # 模型比较结果
 ├── prepare_data.py               # 数据准备脚本
 ├── check_and_fix_data.py         # 检查和修复数据脚本
 ├── convert_to_binary.py          # 转换为二分类数据脚本

@@ -1,0 +1,28 @@
+symbol: BTCUSDT
+interval: 15m
+start_date: 2024-01-01
+end_date: 2024-06-30
+use_existing_data: False
+data_file: None
+ma_short: 20
+ma_long: 50
+ma_type: sma
+profit_target: 0.005
+stop_loss: 0.005
+max_bars: 20
+segment_length: 40
+normalize: False
+normalize_method: zscore
+train_size: 0.7
+val_size: 0.15
+test_size: 0.15
+random_state: 42
+output_dir: output/prediction_data_2024
+start_time: 2025-05-02 11:40:32
+end_time: 2025-05-02 11:40:43
+duration: 0:00:10.909953
+total_samples: 415
+train_samples: 290
+val_samples: 62
+test_samples: 63
+signal_stats: {'total_signals': 415, 'golden_cross_count': 208, 'death_cross_count': 207, 'success_count': 162, 'failure_count': 162, 'invalid_count': 91, 'success_rate': 0.39036144578313253, 'failure_rate': 0.39036144578313253, 'invalid_rate': 0.21927710843373494, 'golden_cross_success_rate': 0.3605769230769231, 'golden_cross_failure_rate': 0.41346153846153844, 'golden_cross_invalid_rate': 0.22596153846153846, 'death_cross_success_rate': 0.42028985507246375, 'death_cross_failure_rate': 0.3671497584541063, 'death_cross_invalid_rate': 0.21256038647342995}

@@ -26,4 +26,4 @@ training:
   save_best: true  # 是否保存最佳模型
 
 # 输出目录
-output_dir: output
+output_dir: output/models

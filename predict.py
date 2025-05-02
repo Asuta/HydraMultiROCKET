@@ -22,7 +22,7 @@ def parse_args():
     parser.add_argument('--model_path', type=str, required=True, help='模型文件路径')
     parser.add_argument('--dataset', type=str, default='italy_power_demand', help='数据集名称')
     parser.add_argument('--custom_dataset_path', type=str, help='自定义数据集路径')
-    parser.add_argument('--output_dir', type=str, default='output/predictions', help='输出目录')
+    parser.add_argument('--output_dir', type=str, default='output/predictions/results', help='输出目录')
     return parser.parse_args()
 
 

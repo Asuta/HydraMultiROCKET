@@ -72,7 +72,7 @@ def parse_args():
     parser.add_argument('--random_state', type=int, default=42, help='随机种子')
 
     # 输出参数
-    parser.add_argument('--output_dir', type=str, default='output/prepared_data', help='输出目录')
+    parser.add_argument('--output_dir', type=str, default='output/data/prepared_data', help='输出目录')
 
     return parser.parse_args()
 
