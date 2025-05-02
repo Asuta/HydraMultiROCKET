@@ -1,5 +1,8 @@
 """
 检查和修复数据中的缺失值
+
+此脚本用于检查数据集中是否存在缺失值，并进行修复。
+可以通过命令行参数指定要处理的数据目录，使其适用于不同的数据集。
 """
 import os
 import numpy as np
@@ -106,6 +109,9 @@ def parse_args():
     """解析命令行参数"""
     parser = argparse.ArgumentParser(description='检查和修复数据中的缺失值')
     parser.add_argument('--data_dir', type=str, default='output/data/prepared_data', help='数据目录')
+    parser.add_argument('--output_dir', type=str, help='输出目录，如果不指定则覆盖原文件')
+    parser.add_argument('--files', nargs='+', default=["train_dataset.npz", "val_dataset.npz", "test_dataset.npz"],
+                        help='要处理的文件列表，默认为训练集、验证集和测试集')
     return parser.parse_args()
 
 
@@ -114,14 +120,19 @@ def main():
     # 解析命令行参数
     args = parse_args()
 
-    # 处理训练集
-    process_dataset(os.path.join(args.data_dir, "train_dataset.npz"))
+    # 处理指定的文件
+    for file_name in args.files:
+        input_path = os.path.join(args.data_dir, file_name)
 
-    # 处理验证集
-    process_dataset(os.path.join(args.data_dir, "val_dataset.npz"))
+        # 如果指定了输出目录，则构建输出路径
+        if args.output_dir:
+            os.makedirs(args.output_dir, exist_ok=True)
+            output_path = os.path.join(args.output_dir, file_name)
+        else:
+            output_path = None  # 不指定输出路径，将覆盖原文件
 
-    # 处理测试集
-    process_dataset(os.path.join(args.data_dir, "test_dataset.npz"))
+        # 处理数据集
+        process_dataset(input_path, output_path)
 
 
 if __name__ == "__main__":

@@ -65,7 +65,17 @@ python prepare_data.py --output_dir output/data/prepared_data
 
 **运行命令**：
 ```bash
-python check_and_fix_data.py
+# 处理训练数据
+python check_and_fix_data.py --data_dir output/data/prepared_data
+
+# 或处理预测数据
+python check_and_fix_data.py --data_dir output/data/prediction_data_2024
+
+# 或指定输出目录
+python check_and_fix_data.py --data_dir output/data/prepared_data --output_dir output/data/prepared_data_fixed
+
+# 或指定要处理的特定文件
+python check_and_fix_data.py --data_dir output/data/prepared_data --files train_dataset.npz test_dataset.npz
 ```
 
 **输出**：
@@ -224,7 +234,7 @@ python compare_binary_models.py
 
 2. **检查并修复数据中的缺失值**：
    ```bash
-   python check_and_fix_data.py
+   python check_and_fix_data.py --data_dir output/data/prepared_data
    ```
 
 3. **转换为二分类数据**（如果需要）：
