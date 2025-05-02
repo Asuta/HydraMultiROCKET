@@ -17,10 +17,10 @@ train_size: 0.7
 val_size: 0.15
 test_size: 0.15
 random_state: 42
-output_dir: output/prediction_data_2024
-start_time: 2025-05-02 11:40:32
-end_time: 2025-05-02 11:40:43
-duration: 0:00:10.909953
+output_dir: output/data/prediction_data_2024
+start_time: 2025-05-02 11:58:36
+end_time: 2025-05-02 11:58:47
+duration: 0:00:10.853525
 total_samples: 415
 train_samples: 290
 val_samples: 62

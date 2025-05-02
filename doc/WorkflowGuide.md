@@ -81,7 +81,11 @@ python check_and_fix_data.py
 
 **运行命令**：
 ```bash
-python convert_to_binary.py
+# 处理训练数据
+python convert_to_binary.py --input_dir output/data/prepared_data --output_dir output/data/prepared_data/binary
+
+# 或处理预测数据
+python convert_to_binary.py --input_dir output/data/prediction_data_2024 --output_dir output/data/prediction_data_2024/binary
 ```
 
 **输出**：
@@ -225,7 +229,7 @@ python compare_binary_models.py
 
 3. **转换为二分类数据**（如果需要）：
    ```bash
-   python convert_to_binary.py
+   python convert_to_binary.py --input_dir output/data/prepared_data --output_dir output/data/prepared_data/binary
    ```
 
 <!-- 已移除数据转置步骤，因为数据生成时已经是正确格式 -->

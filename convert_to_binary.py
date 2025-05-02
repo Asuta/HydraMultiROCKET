@@ -3,8 +3,11 @@
 
 此脚本将原始的三分类数据（成功/失败/无效）转换为二分类数据（成功/失败），
 通过移除标签为2（无效）的样本。
+
+可以通过命令行参数指定输入和输出目录，使其适用于不同的数据集。
 """
 import os
+import argparse
 import numpy as np
 from src.data.data_loader import load_custom_dataset, save_dataset
 
@@ -73,27 +76,38 @@ def process_dataset(file_path: str, output_path: str = None) -> None:
     print(f"已保存二分类数据到: {output_path}")
 
 
+def parse_args():
+    """解析命令行参数"""
+    parser = argparse.ArgumentParser(description='将三分类数据转换为二分类数据')
+    parser.add_argument('--input_dir', type=str, default='output/data/prepared_data', help='输入数据目录')
+    parser.add_argument('--output_dir', type=str, default='output/data/prepared_data/binary', help='输出数据目录')
+    return parser.parse_args()
+
+
 def main():
     """主函数"""
+    # 解析命令行参数
+    args = parse_args()
+
     # 创建输出目录
-    os.makedirs("output/data/prepared_data/binary", exist_ok=True)
+    os.makedirs(args.output_dir, exist_ok=True)
 
     # 处理训练集
     process_dataset(
-        "output/data/prepared_data/train_dataset.npz",
-        "output/data/prepared_data/binary/train_dataset.npz"
+        os.path.join(args.input_dir, "train_dataset.npz"),
+        os.path.join(args.output_dir, "train_dataset.npz")
     )
 
     # 处理验证集
     process_dataset(
-        "output/data/prepared_data/val_dataset.npz",
-        "output/data/prepared_data/binary/val_dataset.npz"
+        os.path.join(args.input_dir, "val_dataset.npz"),
+        os.path.join(args.output_dir, "val_dataset.npz")
     )
 
     # 处理测试集
     process_dataset(
-        "output/data/prepared_data/test_dataset.npz",
-        "output/data/prepared_data/binary/test_dataset.npz"
+        os.path.join(args.input_dir, "test_dataset.npz"),
+        os.path.join(args.output_dir, "test_dataset.npz")
     )
 
 

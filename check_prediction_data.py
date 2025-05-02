@@ -105,7 +105,7 @@ def process_dataset(file_path: str, output_path: str = None) -> None:
 def parse_args():
     """解析命令行参数"""
     parser = argparse.ArgumentParser(description='检查和修复数据中的缺失值')
-    parser.add_argument('--data_dir', type=str, default='output/data/prediction_data', help='数据目录')
+    parser.add_argument('--data_dir', type=str, default='output/data/prediction_data_2024', help='数据目录')
     return parser.parse_args()
 
 
