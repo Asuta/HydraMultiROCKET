@@ -18,9 +18,9 @@ val_size: 0.15
 test_size: 0.15
 random_state: 42
 output_dir: output/prepared_data
-start_time: 2025-05-01 16:33:39
-end_time: 2025-05-01 16:34:01
-duration: 0:00:21.749909
+start_time: 2025-05-02 09:40:24
+end_time: 2025-05-02 09:40:45
+duration: 0:00:21.209464
 total_samples: 929
 train_samples: 650
 val_samples: 139

@@ -124,3 +124,11 @@ MultiRocketHydra 是将 Hydra 和 MultiROCKET 的结果结合起来的混合模�
 2. Cahng Wei T, Dempster A, Bergmeir C and Webb G (2022) MultiRocket: multiple pooling operators and transformations for fast and effective time series classification [Journal Paper](https://link.springer.com/article/10.1007/s10618-022-00844-1)
 
 3. Dempster A, Petitjean F and Webb GI (2019) ROCKET: Exceptionally fast and accurate time series classification using random convolutional kernels. [Journal Paper](https://link.springer.com/article/10.1007/s10618-020-00701-z)
+
+
+完整工作流程回顾
+数据准备：
+检查并修复数据中的缺失值：
+训练模型：
+使用模型进行预测：
+这个问题的解决过程很好地展示了在时间序列模型训练和预测中需要注意的一些关键点：

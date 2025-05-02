@@ -173,7 +173,7 @@ def main():
         feature_columns=feature_columns,
         normalize=args.normalize,
         normalize_method=args.normalize_method,
-        transpose_for_aeon=True  # 转置数据以适应aeon库的要求
+        for_aeon=True  # 直接生成适合aeon库的数据格式
     )
 
     print(f"提取的特征形状: {X.shape}, 标签形状: {y.shape}")

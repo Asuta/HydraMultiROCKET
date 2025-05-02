@@ -89,21 +89,7 @@ python convert_to_binary.py
 - `output/prepared_data/binary/val_dataset.npz`：二分类验证集
 - `output/prepared_data/binary/test_dataset.npz`：二分类测试集
 
-#### 2.3 转置数据（如果需要）
-
-**脚本**：`transpose_data.py`
-
-**功能**：
-- 转置数据，使其符合MultiROCKET的要求
-- 从 (n_samples, n_timepoints, n_features) 变为 (n_samples, n_features, n_timepoints)
-
-**运行命令**：
-```bash
-python transpose_data.py
-```
-
-**输出**：
-- 转置后的数据集（覆盖原文件）
+<!-- 已移除数据转置步骤，因为数据生成时已经是正确格式 -->
 
 ### 第三步：模型训练
 
@@ -242,19 +228,16 @@ python compare_binary_models.py
    python convert_to_binary.py
    ```
 
-4. **转置数据**（如果需要）：
-   ```bash
-   python transpose_data.py
-   ```
+<!-- 已移除数据转置步骤，因为数据生成时已经是正确格式 -->
 
 5. **训练模型**（选择一种配置）：
    ```bash
    # 三分类模型
    python train.py --config config/default.yaml
-   
+
    # 或者二分类模型
    python train.py --config config/binary.yaml
-   
+
    # 或者优化参数的二分类模型
    python train.py --config config/binary_optimized.yaml
    ```
@@ -269,7 +252,7 @@ python compare_binary_models.py
    ```bash
    # 比较三分类和二分类模型
    python compare_models.py
-   
+
    # 比较不同参数的二分类模型
    python compare_binary_models.py
    ```
@@ -316,7 +299,6 @@ HydraMultiROCKET/
 ├── prepare_data.py               # 数据准备脚本
 ├── check_and_fix_data.py         # 检查和修复数据脚本
 ├── convert_to_binary.py          # 转换为二分类数据脚本
-├── transpose_data.py             # 转置数据脚本
 ├── train.py                      # 模型训练脚本
 ├── predict.py                    # 模型预测脚本
 ├── compare_models.py             # 比较三分类和二分类模型脚本
