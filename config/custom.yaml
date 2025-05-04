@@ -1,4 +1,4 @@
-# 自定义配置文件
+# 三分类模型配置文件 - 2023年比特币15分钟数据
 
 # 数据配置
 data:
@@ -28,4 +28,4 @@ training:
   save_best: true  # 是否保存最佳模型
 
 # 输出目录
-output_dir: output/models
+output_dir: output/models/triclass_2023
