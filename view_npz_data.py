@@ -66,7 +66,7 @@ def print_npz_info(file_path: str) -> None:
     print(f"\nX 数据示例 (前2个样本的前5个时间点):")
     for i in range(min(2, X.shape[0])):
         print(f"  样本 {i+1}:")
-        for j in range(min(5, X.shape[1])):
+        for j in range(X.shape[1]):
             feature_values = X[i, j, :5]  # 只显示前5个时间点
             print(f"    特征 {j+1}: {feature_values}")
 
