@@ -29,6 +29,8 @@ class ModelConfig:
     n_features_per_kernel: int = 4  # 每个卷积核的特征数
     random_state: Optional[int] = None  # 随机种子
     n_jobs: int = 1  # 并行作业数
+    use_calibrated_classifier: bool = False  # 是否使用校准后的分类器以获得更好的概率估计
+    cv_folds: int = 5  # 校准分类器时使用的交叉验证折数
     save_path: str = "models/hydra_multirocket.pkl"  # 模型保存路径
 
 

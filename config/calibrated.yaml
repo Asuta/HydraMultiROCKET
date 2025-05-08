@@ -1,0 +1,31 @@
+# 校准分类器配置文件
+
+# 数据配置
+data:
+  dataset_name: italy_power_demand  # 数据集名称，可选 "basic_motions" 或 "italy_power_demand"
+  custom_dataset_path: null  # 自定义数据集路径
+  test_size: 0.2  # 测试集比例
+  random_state: 42  # 随机种子
+  save_path: null  # 数据保存路径
+
+# 模型配置
+model:
+  model_type: multirocket_hydra  # 模型类型，可选 "hydra", "multirocket" 或 "multirocket_hydra"
+  n_kernels: 8  # 卷积核数量
+  n_groups: 32  # 每个扩张的组数
+  max_dilations_per_kernel: 32  # 每个卷积核的最大扩张数
+  n_features_per_kernel: 4  # 每个卷积核的特征数
+  random_state: 42  # 随机种子
+  n_jobs: 1  # 并行作业数
+  use_calibrated_classifier: true  # 是否使用校准后的分类器以获得更好的概率估计
+  cv_folds: 5  # 校准分类器时使用的交叉验证折数
+  save_path: models/calibrated_hydra_multirocket.pkl  # 模型保存路径
+
+# 训练配置
+training:
+  epochs: 1  # 训练轮数（对于这种模型通常只需要一轮）
+  verbose: true  # 是否显示详细信息
+  save_best: true  # 是否保存最佳模型
+
+# 输出目录
+output_dir: output/models/calibrated

@@ -6,6 +6,8 @@ import pickle
 import numpy as np
 from typing import Optional, Dict, Any, Union, Tuple
 
+from sklearn.calibration import CalibratedClassifierCV
+
 from aeon.classification.convolution_based import (
     HydraClassifier,
     MultiRocketClassifier,
@@ -26,6 +28,8 @@ class HydraMultiRocketModel:
                  n_features_per_kernel: int = 4,
                  random_state: Optional[int] = None,
                  n_jobs: int = 1,
+                 use_calibrated_classifier: bool = False,
+                 cv_folds: int = 5,
                  **kwargs):
         """
         初始化模型
@@ -38,6 +42,8 @@ class HydraMultiRocketModel:
             n_features_per_kernel: 每个卷积核的特征数 (仅用于MultiRocket)
             random_state: 随机种子
             n_jobs: 并行作业数
+            use_calibrated_classifier: 是否使用校准后的分类器以获得更好的概率估计
+            cv_folds: 校准分类器时使用的交叉验证折数
             **kwargs: 其他参数
         """
         self.model_type = model_type
@@ -47,6 +53,8 @@ class HydraMultiRocketModel:
         self.n_features_per_kernel = n_features_per_kernel
         self.random_state = random_state
         self.n_jobs = n_jobs
+        self.use_calibrated_classifier = use_calibrated_classifier
+        self.cv_folds = cv_folds
         self.kwargs = kwargs
         self.model = self._create_model()
 
@@ -57,8 +65,9 @@ class HydraMultiRocketModel:
         返回:
             模型实例
         """
+        # 首先创建基础模型
         if self.model_type == "hydra":
-            return HydraClassifier(
+            base_model = HydraClassifier(
                 n_kernels=self.n_kernels,
                 n_groups=self.n_groups,
                 random_state=self.random_state,
@@ -66,7 +75,7 @@ class HydraMultiRocketModel:
                 **self.kwargs
             )
         elif self.model_type == "multirocket":
-            return MultiRocketClassifier(
+            base_model = MultiRocketClassifier(
                 n_kernels=self.n_kernels,
                 max_dilations_per_kernel=self.max_dilations_per_kernel,
                 n_features_per_kernel=self.n_features_per_kernel,
@@ -75,7 +84,7 @@ class HydraMultiRocketModel:
                 **self.kwargs
             )
         elif self.model_type == "multirocket_hydra":
-            return MultiRocketHydraClassifier(
+            base_model = MultiRocketHydraClassifier(
                 n_kernels=self.n_kernels,
                 n_groups=self.n_groups,
                 random_state=self.random_state,
@@ -84,6 +93,17 @@ class HydraMultiRocketModel:
             )
         else:
             raise ValueError(f"未知模型类型: {self.model_type}")
+
+        # 如果需要，使用校准分类器包装基础模型
+        if self.use_calibrated_classifier:
+            return CalibratedClassifierCV(
+                base_model,
+                cv=self.cv_folds,
+                method='sigmoid',  # 使用Platt缩放
+                n_jobs=self.n_jobs
+            )
+        else:
+            return base_model
 
     def fit(self, X, y):
         """
@@ -111,7 +131,17 @@ class HydraMultiRocketModel:
         """
         return self.model.predict(X)
 
-    # 移除概率预测功能
+    def predict_proba(self, X):
+        """
+        预测类别概率
+
+        参数:
+            X: 测试数据
+
+        返回:
+            预测的类别概率，形状为 (n_samples, n_classes)
+        """
+        return self.model.predict_proba(X)
 
     def save(self, file_path: str):
         """
@@ -160,6 +190,8 @@ class HydraMultiRocketModel:
             'n_features_per_kernel': self.n_features_per_kernel,
             'random_state': self.random_state,
             'n_jobs': self.n_jobs,
+            'use_calibrated_classifier': self.use_calibrated_classifier,
+            'cv_folds': self.cv_folds,
             **self.kwargs
         }
         return params

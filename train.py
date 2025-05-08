@@ -103,12 +103,24 @@ def main():
 
     # 创建模型
     logger.info(f"创建模型: {config.model.model_type}")
+
+    # 检查配置中是否有校准分类器相关参数
+    use_calibrated = config.model.get('use_calibrated_classifier', False)
+    cv_folds = config.model.get('cv_folds', 5)
+
+    if use_calibrated:
+        logger.info("使用校准分类器以获得更好的概率估计")
+
     model = HydraMultiRocketModel(
         model_type=config.model.model_type,
         n_kernels=config.model.n_kernels,
+        n_groups=config.model.n_groups,
         max_dilations_per_kernel=config.model.max_dilations_per_kernel,
         n_features_per_kernel=config.model.n_features_per_kernel,
-        random_state=config.model.random_state
+        random_state=config.model.random_state,
+        n_jobs=config.model.n_jobs,
+        use_calibrated_classifier=use_calibrated,
+        cv_folds=cv_folds
     )
 
     # 训练模型

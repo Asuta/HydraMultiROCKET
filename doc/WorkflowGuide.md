@@ -182,11 +182,18 @@ python predict.py --model_path [model_path] --custom_dataset_path [test_data_pat
 **参数**：
 - `--model_path`：模型路径，例如 "output/models/binary/multirocket_hydra_[timestamp]/model.pkl"
 - `--custom_dataset_path`：测试数据路径，例如 "output/data/prepared_data/binary/test_dataset.npz"
+- `--output_proba`：是否输出预测概率（可选）
+- `--save_results`：是否保存预测结果到文件（可选）
+- `--show_all_proba`：是否显示所有样本的预测概率（可选，默认只显示前5个样本）
+- `--save_csv`：是否将预测结果保存为CSV文件（可选）
 
 **输出**：
 - 控制台输出：评估指标（准确率、精确率、召回率、F1分数）
 - 控制台输出：分类报告
 - 控制台输出：混淆矩阵
+- 控制台输出：预测概率（如果使用 `--output_proba` 参数）
+- 文件输出：预测结果文件（如果使用 `--save_results` 参数，保存为.npz格式）
+- 文件输出：预测结果CSV文件（如果使用 `--save_csv` 参数，包含样本ID、真实标签、预测标签和各类别概率）
 
 ### 第五步：模型比较（可选）
 
@@ -254,12 +261,30 @@ python compare_binary_models.py
 
    # 或者优化参数的二分类模型
    python train.py --config config/binary_optimized.yaml
+
+   # 或者使用校准分类器的模型（提供更准确的概率输出）
+   python train.py --config config/calibrated.yaml
    ```
 
 6. **使用模型进行预测**：
    ```bash
    # 使用最新训练的模型（需要替换为实际的模型路径）
    python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/data/prepared_data/binary/test_dataset.npz
+
+   # 输出预测概率
+   python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/data/prepared_data/binary/test_dataset.npz --output_proba
+
+   # 输出预测概率并保存结果
+   python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/data/prepared_data/binary/test_dataset.npz --output_proba --save_results
+
+   # 显示所有样本的预测概率
+   python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/data/prepared_data/binary/test_dataset.npz --output_proba --show_all_proba
+
+   # 将预测结果保存为CSV文件（便于在Excel等工具中查看）
+   python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/data/prepared_data/binary/test_dataset.npz --output_proba --save_csv
+
+   # 组合使用多个功能
+   python predict.py --model_path output/models/binary/multirocket_hydra_[timestamp]/model.pkl --custom_dataset_path output/data/prepared_data/binary/test_dataset.npz --output_proba --show_all_proba --save_results --save_csv
    ```
 
 7. **比较不同模型**（可选）：
@@ -278,8 +303,28 @@ python compare_binary_models.py
 1. **default.yaml**：默认配置，用于三分类模型
 2. **binary.yaml**：二分类模型配置
 3. **binary_optimized.yaml**：优化参数的二分类模型配置
+4. **calibrated.yaml**：使用校准分类器的配置，提供更准确的概率输出
 
 您可以根据需要修改这些配置文件中的参数，如卷积核数量、特征数等。
+
+### 校准分类器配置
+
+如果您需要更准确的概率预测（而不仅仅是类别预测），可以使用校准分类器。校准分类器通过交叉验证来校准原始分类器的输出概率，使其更接近真实概率。
+
+相关配置参数：
+
+- `use_calibrated_classifier`：是否使用校准分类器（默认为 false）
+- `cv_folds`：校准时使用的交叉验证折数（默认为 5）
+
+使用校准分类器的示例命令：
+
+```bash
+# 使用校准分类器训练模型
+python train.py --config config/calibrated.yaml
+
+# 或者直接在命令行指定
+python train.py --config config/default.yaml --use_calibrated_classifier true
+```
 
 ## 项目结构
 
@@ -288,7 +333,8 @@ HydraMultiROCKET/
 ├── config/                       # 配置文件目录
 │   ├── default.yaml              # 默认配置（三分类）
 │   ├── binary.yaml               # 二分类配置
-│   └── binary_optimized.yaml     # 优化参数的二分类配置
+│   ├── binary_optimized.yaml     # 优化参数的二分类配置
+│   └── calibrated.yaml           # 使用校准分类器的配置
 ├── data_processing/              # 数据处理模块
 │   ├── __init__.py
 │   ├── binance_data_fetcher.py   # 获取币安历史数据
