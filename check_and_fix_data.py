@@ -55,21 +55,17 @@ def fix_missing_values(X: np.ndarray, y: np.ndarray) -> tuple:
 
     # 检查特征中的缺失值
     if np.isnan(X).any():
-        # 对于特征中的缺失值，使用前向填充
-        for i in range(len(X)):
-            for j in range(X.shape[1]):
-                for k in range(X.shape[2]):
-                    if np.isnan(X[i, j, k]):
-                        # 如果是第一个时间点，使用该特征的均值填充
-                        if j == 0:
-                            # 计算该特征在所有样本中的均值（排除NaN）
-                            feature_mean = np.nanmean(X[:, :, k])
-                            X[i, j, k] = feature_mean
-                        else:
-                            # 使用前一个时间点的值填充
-                            X[i, j, k] = X[i, j-1, k]
-
-        print(f"已修复特征数据中的缺失值")
+        # 找出在任何特征或时间点上包含 NaN 的样本的索引
+        # np.isnan(X) 会返回一个布尔数组，形状与 X 相同
+        # .any(axis=(1, 2)) 会检查每个样本（axis=0）在所有特征（axis=1）和所有时间点（axis=2）上是否存在 NaN
+        samples_with_nan = np.isnan(X).any(axis=(1, 2))
+        
+        # 找出不包含 NaN 的样本的索引
+        valid_sample_indices = ~samples_with_nan
+        
+        X = X[valid_sample_indices]
+        y = y[valid_sample_indices]
+        print(f"已移除特征数据中有缺失值的样本，剩余样本数: {len(y)}")
 
     return X, y
 
