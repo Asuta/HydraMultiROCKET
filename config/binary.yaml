@@ -13,7 +13,7 @@ data:
 # 模型配置
 model:
   model_type: multirocket_hydra  # 模型类型，可选 "hydra", "multirocket" 或 "multirocket_hydra"
-  n_kernels: 32  # 卷积核数量
+  n_kernels: 512  # 卷积核数量
   n_groups: 64  # 每个扩张的组数
   max_dilations_per_kernel: 64  # 每个卷积核的最大扩张数
   n_features_per_kernel: 8  # 每个卷积核的特征数

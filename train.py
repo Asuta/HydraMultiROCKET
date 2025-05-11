@@ -23,7 +23,7 @@ fix_chinese_display()
 def parse_args():
     """解析命令行参数"""
     parser = argparse.ArgumentParser(description='训练Hydra+MultiROCKET模型')
-    parser.add_argument('--config', type=str, default='config/custom.yaml', help='配置文件路径')
+    parser.add_argument('--config', type=str, default='config/binary.yaml', help='配置文件路径')
     parser.add_argument('--dataset', type=str, help='数据集名称，覆盖配置文件中的设置')
     parser.add_argument('--model_type', type=str, help='模型类型，覆盖配置文件中的设置')
     parser.add_argument('--output_dir', type=str, help='输出目录，覆盖配置文件中的设置')
