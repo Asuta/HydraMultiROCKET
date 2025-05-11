@@ -171,6 +171,7 @@ def main():
     X, y = prepare_dataset_from_signals(
         df=df,
         segment_length=args.segment_length,
+        feature_columns=feature_columns,  # 明确传递特征列表
         normalize=False,  # 关闭内部标准化，我们将使用自定义的标准化方法
         normalize_method=args.normalize_method,
         for_aeon=True  # 直接生成适合aeon库的数据格式
@@ -187,8 +188,10 @@ def main():
     print("对数据进行样本级别的标准化...")
     # 找到volume特征的索引
     volume_idx = feature_columns.index('volume')
+    print(f"特征列表: {feature_columns}")
+    print(f"特征形状: {X.shape}")
     print(f"价格相关特征: {[f for i, f in enumerate(feature_columns) if i != volume_idx]}")
-    print(f"交易量特征: {feature_columns[volume_idx]}")
+    print(f"交易量特征: {feature_columns[volume_idx]} (索引: {volume_idx})")
 
     # 对每个样本单独进行标准化，价格相关特征和交易量分别标准化
     X = normalize_samples_individually(X, volume_feature_idx=volume_idx)

@@ -62,12 +62,12 @@ def print_npz_info(file_path: str) -> None:
     print(f"  均值: {X.mean()}")
     print(f"  标准差: {X.std()}")
 
-    # 打印X的前几个样本的部分数据
-    print(f"\nX 数据示例 (前2个样本的前5个时间点):")
+    # 打印X的前几个样本的所有特征数据
+    print(f"\nX 数据示例 (前2个样本的所有特征):")
     for i in range(min(2, X.shape[0])):
         print(f"  样本 {i+1}:")
         for j in range(X.shape[1]):
-            feature_values = X[i, j, :5]  # 只显示前5个时间点
+            feature_values = X[i, j, :]  # 显示所有时间点
             print(f"    特征 {j+1}: {feature_values}")
 
 def visualize_sample(file_path: str, sample_idx: int = 0, feature_indices: Optional[list] = None, output_dir: str = '.') -> None:

@@ -212,6 +212,8 @@ def normalize_samples_individually(X: np.ndarray, volume_feature_idx: int = 4) -
     n_samples, n_features, segment_length = X.shape
     X_normalized = np.zeros_like(X)
 
+    print(f"标准化数据形状: {X.shape}, volume_feature_idx: {volume_feature_idx}")
+
     # 对每个样本单独进行标准化
     for i in range(n_samples):
         # 获取当前样本
